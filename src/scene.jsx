@@ -2,7 +2,10 @@ import React, { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Interactive,  } from '@react-three/xr'
 import * as THREE from 'three'
+import { createXRStore, XR } from '@react-three/xr'
 
+
+const xrStore = createXRStore()
 export default function Scene() {
   const boxRef = useRef()
 
@@ -13,6 +16,7 @@ export default function Scene() {
   })
 
   const handleClick = () => {
+xrStore.session?.end()
     const user = prompt('👤 Digite o nome de usuário:')
     const pass = prompt('🔒 Digite a senha:')
 
@@ -23,6 +27,9 @@ export default function Scene() {
     } else {
       alert('❌ Usuário ou senha incorretos.')
     }
+
+    xrStore.enterVR();
+    xrStore.enterAR()
   }
 
   return (
