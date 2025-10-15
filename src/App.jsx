@@ -60,7 +60,13 @@ export default function App() {
   gl={{ antialias: true }}
   frameloop="always" // antes estava "never"
 >
+
+
+  
   <XR store={xrStore} sessionInit={{ requiredFeatures: [] }}>
+
+
+    
     <Scene />
   </XR>
 </Canvas>
