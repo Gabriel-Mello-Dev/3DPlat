@@ -58,9 +58,10 @@ export default function App() {
   gl={{ antialias: true }}
   style={{ width: '100%', height: '100%' }}
 >
-  <XR store={xrStore}>
-    <Scene />
-  </XR>
+ <XR store={xrStore}>
+  <Scene xrStore={xrStore} />   {/* <- passe o store como prop */}
+</XR>
+
 </Canvas>
 
 
