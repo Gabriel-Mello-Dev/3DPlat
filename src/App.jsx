@@ -66,7 +66,7 @@ export default function App() {
 
 
     
- <Scene xrStore={xrStore} />  
+ <Scene/>  
  
  </XR>
 </Canvas>
