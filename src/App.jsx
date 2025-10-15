@@ -54,22 +54,15 @@ export default function App() {
 
       {/* Canvas com XR */}
     <Canvas
-  style={{ width: '100%', height: '100%' }}
   shadows
   gl={{ antialias: true }}
-  frameloop="always" // antes estava "never"
+  style={{ width: '100%', height: '100%' }}
 >
-
-
-  
-  <XR store={xrStore} sessionInit={{ requiredFeatures: [] }}>
-
-
-    
- <Scene/>  
- 
- </XR>
+  <XR store={xrStore}>
+    <Scene />
+  </XR>
 </Canvas>
+
 
     </div>
   )
