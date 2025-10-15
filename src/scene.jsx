@@ -1,18 +1,29 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { Interactive } from '@react-three/xr'
-import { Html } from '@react-three/drei'
+import { Interactive,  } from '@react-three/xr'
 import * as THREE from 'three'
 
 export default function Scene() {
   const boxRef = useRef()
-  const [username, setUsername] = useState('')
 
   useFrame((_, delta) => {
     if (boxRef.current) {
       boxRef.current.rotation.y += delta * 0.3
     }
   })
+
+  const handleClick = () => {
+    const user = prompt('👤 Digite o nome de usuário:')
+    const pass = prompt('🔒 Digite a senha:')
+
+
+
+    if (user === 'a' && pass === '123') {
+      alert('✅ Login bem-sucedido!')
+    } else {
+      alert('❌ Usuário ou senha incorretos.')
+    }
+  }
 
   return (
     <>
@@ -31,27 +42,14 @@ export default function Scene() {
         <meshStandardMaterial color="green" />
       </mesh>
 
-      {/* Botão para abrir teclado */}
-      <Interactive>
-        <mesh position={[0, 1.5, -3]}>
-          <boxGeometry args={[2, 0.6, 0.2]} />
+      {/* Botão VR 3D */}
+      <Interactive onSelect={handleClick}>
+        <mesh position={[0, 1.2, -3]}>
+          <boxGeometry args={[1.5, 0.5, 0.2]} />
           <meshStandardMaterial color="#2563eb" />
+          {/* Texto 3D */}
+        
         </mesh>
-        <Html position={[0, 0, 0.15]} transform occlude>
-          <input
-            type="text"
-            placeholder="Digite seu nome"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            style={{
-              fontSize: '16px',
-              padding: '8px',
-              borderRadius: '6px',
-              border: '1px solid #ccc',
-              width: '200px'
-            }}
-          />
-        </Html>
       </Interactive>
     </>
   )
