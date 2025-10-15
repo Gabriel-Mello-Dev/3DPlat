@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState} from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Interactive,  } from '@react-three/xr'
 import * as THREE from 'three'
@@ -8,7 +8,7 @@ import { createXRStore, XR } from '@react-three/xr'
 const xrStore = createXRStore()
 export default function Scene() {
   const boxRef = useRef()
-
+const [cubes, setCubes] = useState([])
   useFrame((_, delta) => {
     if (boxRef.current) {
       boxRef.current.rotation.y += delta * 0.3
@@ -16,20 +16,8 @@ export default function Scene() {
   })
 
   const handleClick = () => {
-xrStore.session?.end()
-    const user = prompt('👤 Digite o nome de usuário:')
-    const pass = prompt('🔒 Digite a senha:')
-
-
-
-    if (user === 'a' && pass === '123') {
-      alert('✅ Login bem-sucedido!')
-    } else {
-      alert('❌ Usuário ou senha incorretos.')
-    }
-
-    xrStore.enterVR();
-    xrStore.enterAR()
+  const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16)
+    setCubes(prev => [...prev, { color: randomColor, id: prev.length }])
   }
 
   return (
@@ -54,8 +42,7 @@ xrStore.session?.end()
         <mesh position={[0, 1.2, -3]}>
           <boxGeometry args={[1.5, 0.5, 0.2]} />
           <meshStandardMaterial color="#2563eb" />
-          {/* Texto 3D */}
-        
+{cubes.map(c => ( <mesh key={c.id} position={[Math.random() * 4 - 2, 1, Math.random() * -4]} > <boxGeometry args={[1, 1, 1]} /> <meshStandardMaterial color={c.color} /> </mesh> ))}        
         </mesh>
       </Interactive>
     </>

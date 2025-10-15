@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { createXRStore, XR } from '@react-three/xr'
 import Scene from '../src/scene'
+import { OrbitControls } from "@react-three/drei";
 
 const xrStore = createXRStore()
 
@@ -86,7 +87,18 @@ export default function App() {
         </div>
       )}
 
-      <Canvas shadows gl={{ antialias: true }} frameloop="always">
+      <Canvas shadows gl={{ antialias: true }} frameloop="always" camera={{ position: [0, 0, 15], fov: 25 }}>
+               
+      <OrbitControls
+        enablePan={false}
+        enableZoom={true}
+        minDistance={8}   // não deixe chegar muito perto
+        maxDistance={20}  // nem muito longe
+  
+        // Opcional: limite horizontal
+        minAzimuthAngle={-0.4}
+        maxAzimuthAngle={0.4}
+      />
         <XR store={xrStore}>
           <Scene />
         </XR>
