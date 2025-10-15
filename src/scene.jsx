@@ -37,27 +37,7 @@ export default function Scene({ xrStore }) {
         <meshStandardMaterial color="green" />
       </mesh>
 
-      {/* Botão de sair XR */}
-      <Html
-        transform
-        occlude
-        position={[0, 2.5, -2]} // ajuste a posição acima do cubo
-        style={{ pointerEvents: 'auto' }}
-      >
-        <button
-          onClick={() => xrStore.end()}
-          style={{
-            padding: '10px 16px',
-            background: '#dc2626',
-            color: 'white',
-            border: 'none',
-            borderRadius: '8px',
-            cursor: 'pointer'
-          }}
-        >
-          ❌ Exit XR
-        </button>
-      </Html>
+     
     </>
   )
 }

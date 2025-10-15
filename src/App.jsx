@@ -11,7 +11,9 @@ const xrStore = createXRStore()
 
 export default function App() {
 
-
+useEffect(() => {
+  xrStore.enterVR()
+}, []) 
   
   return (
     <div style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}>
@@ -67,8 +69,9 @@ export default function App() {
 
 
     
-    <Scene />
-  </XR>
+ <Scene xrStore={xrStore} />  
+ 
+ </XR>
 </Canvas>
 
     </div>
