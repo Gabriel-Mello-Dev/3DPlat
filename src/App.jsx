@@ -3,11 +3,16 @@ import React from 'react'
 import { Canvas } from '@react-three/fiber'
 import { createXRStore, XR } from '@react-three/xr'
 import Scene from '../src/scene'
+import { useEffect } from 'react'
+
 
 // cria o store XR uma única vez
 const xrStore = createXRStore()
 
 export default function App() {
+
+
+  
   return (
     <div style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}>
       {/* Botões HTML fixos */}
@@ -49,11 +54,17 @@ export default function App() {
       </div>
 
       {/* Canvas com XR */}
-      <Canvas frameloop="never" style={{ width: '100%', height: '100%' }}>
-        <XR store={xrStore} startXRloop sessionInit={{ requiredFeatures: [] }}>
-          <Scene />
-        </XR>
-      </Canvas>
+    <Canvas
+  style={{ width: '100%', height: '100%' }}
+  shadows
+  gl={{ antialias: true }}
+  frameloop="always" // antes estava "never"
+>
+  <XR store={xrStore} sessionInit={{ requiredFeatures: [] }}>
+    <Scene />
+  </XR>
+</Canvas>
+
     </div>
   )
 }
