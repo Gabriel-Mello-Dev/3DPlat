@@ -1,76 +1,43 @@
-// App.jsx
-import React from 'react'
-import { Canvas } from '@react-three/fiber'
-import { createXRStore, XR } from '@react-three/xr'
-import Scene from '../src/scene'
-import { useEffect } from 'react'
+import React, { useRef } from 'react'
+import { useFrame } from '@react-three/fiber'
+import { Html } from '@react-three/drei'
+import * as THREE from 'three'
 
+export default function Scene({ xrStore }) {
+  const boxRef = useRef()
 
-// cria o store XR uma única vez
-const xrStore = createXRStore()
+  useFrame((_, delta) => {
+    if (boxRef.current) {
+      boxRef.current.rotation.y += delta * 0.3
+      boxRef.current.rotation.x += delta * 0.15
+    }
+  })
 
-export default function App() {
-
-
-  
   return (
-    <div style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}>
-      {/* Botões HTML fixos */}
-      <div style={{
-        position: 'absolute',
-        zIndex: 10,
-        left: 20,
-        top: 20,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '8px'
-      }}>
-        <button
-          onClick={() => xrStore.enterVR()}
-          style={{
-            padding: '10px 16px',
-            background: '#2563eb',
-            color: 'white',
-            border: 'none',
-            borderRadius: '8px',
-            cursor: 'pointer'
-          }}
-        >
-          🥽 Enter VR
-        </button>
-        <button
-          onClick={() => xrStore.enterAR()}
-          style={{
-            padding: '10px 16px',
-            background: '#16a34a',
-            color: 'white',
-            border: 'none',
-            borderRadius: '8px',
-            cursor: 'pointer'
-          }}
-        >
-          📱 Enter AR
-        </button>
-      </div>
+    <>
+      {/* Luzes */}
+      <ambientLight intensity={1} />
+      <directionalLight position={[5, 10, 5]} intensity={1} />
 
-      {/* Canvas com XR */}
-    <Canvas
-  style={{ width: '100%', height: '100%' }}
-  shadows
-  gl={{ antialias: true }}
-  frameloop="always" // antes estava "never"
->
+      {/* Skybox */}
+      <mesh>
+        <sphereGeometry args={[50, 64, 64]} />
+        <meshBasicMaterial color="#87CEEB" side={THREE.BackSide} />
+      </mesh>
 
+      {/* Cubo */}
+      <mesh ref={boxRef} position={[0, 1.5, -2]}>
+        <boxGeometry args={[1, 1, 1]} />
+        <meshStandardMaterial color="orange" />
+      </mesh>
 
-  
-  <XR store={xrStore} sessionInit={{ requiredFeatures: [] }}>
+      {/* Chão */}
+      <mesh rotation={[-Math.PI/2, 0, 0]} position={[0, -0.5, 0]}>
+        <planeGeometry args={[10, 10]} />
+        <meshStandardMaterial color="green" />
+      </mesh>
 
-
-    
-    <Scene />
-  </XR>
-</Canvas>
-
-    </div>
+     
+    </>
   )
 }
