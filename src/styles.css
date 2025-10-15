@@ -1,0 +1,21 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html,body,#root { height: 100%; background: #000; }
+.app-root { position: fixed; inset: 0; }
+canvas { width: 100% !important; height: 100% !important; display: block; }
+
+.hud {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 200;
+}
+.hud-top-left {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  pointer-events: auto;
+  background: rgba(0,0,0,0.45);
+  padding: 10px 12px;
+  border-radius: 8px;
+}
+button { padding: 8px 12px; border-radius: 6px; border: none; cursor: pointer; }
