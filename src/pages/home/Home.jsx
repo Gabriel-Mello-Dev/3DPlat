@@ -38,26 +38,31 @@ function Home({ onLogin }) {
         <OrbitControls enableZoom={false} />
       </Canvas>
       {/* Formulário de login */}
-      <div className="absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
-                      bg-white/90 backdrop-blur-md p-8 rounded-2xl shadow-xl w-80 flex flex-col gap-4">
-        <h1 className="text-2xl font-bold text-center text-gray-800 mb-4">Login</h1>
+      <div className="absolute z-10 flex flex-col gap-4 p-8 transform -translate-x-1/2 -translate-y-1/2 shadow-xl top-1/2 left-1/2 bg-white/90 backdrop-blur-md rounded-2xl w-80">
+        <h1 className="mb-4 text-2xl font-bold text-center text-gray-800">Login</h1>
         <input
           type="text"
           placeholder="Usuário"
           value={user}
           onChange={(e) => setUser(e.target.value)}
-          className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <input
           type="password"
           placeholder="Senha"
           value={pass}
           onChange={(e) => setPass(e.target.value)}
-          className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <button
+        onClick={(e)=>       navigate("/CriarConta")}
+                  className="py-2 mt-2 font-semibold text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700"
+>
+          Ainda não possui login?
+        </button>
+        <button
           onClick={handleLogin}
-          className="mt-2 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
+          className="py-2 mt-2 font-semibold text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700"
         >
           Entrar
         </button>

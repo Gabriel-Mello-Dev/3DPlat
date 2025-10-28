@@ -1,75 +1,100 @@
-import React, { useRef, useState } from 'react'
-import { useFrame } from '@react-three/fiber'
-import { createXRStore, XR } from '@react-three/xr'
-import * as THREE from 'three'
-import { Text } from '@react-three/drei'
-import { useNavigate } from 'react-router-dom'
+import React, { useRef } from "react";
+import { useFrame, useLoader } from "@react-three/fiber";
+import { createXRStore, XR } from "@react-three/xr";
+import * as THREE from "three";
+import { Text, Text3D } from "@react-three/drei";
+import { useNavigate } from "react-router-dom";
 
-const xrStore = createXRStore()
+const xrStore = createXRStore();
 
 function Scene() {
-  const boxRef = useRef()
-  const [cubes, setCubes] = useState([])
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const bgTexture = useLoader(THREE.TextureLoader, "/imgs/galaxy.jpg"); // fundo 3D
+  const logoTexture = useLoader(THREE.TextureLoader, "/imgs/Animus.png"); // logo
 
-  useFrame((_, delta) => {
-    if (boxRef.current) {
-      boxRef.current.rotation.y += delta * 0.5 // rotação leve
-    }
-  })
+  const buttonRef = useRef(); // referência do grupo do botão
 
-  // Ao clicar, vai para /Jogos
-  const handleClick = () => {
-    navigate('/Jogos')
-  }
-
-  const handleDiminuir = () => {
-    setCubes(prev => {
-      if (prev.length === 0) return prev
-      return prev.slice(0, -1)
-    })
-  }
+const handleClick = () => navigate("/Jogos");
 
   return (
     <XR store={xrStore}>
-      <ambientLight intensity={1} />
-      <directionalLight position={[5, 10, 5]} intensity={1} />
+      {/* Luzes */}
+      <ambientLight intensity={1.2} />
+      <directionalLight position={[3, 5, 2]} intensity={1} />
 
-      {/* Skybox */}
+      {/* Fundo 3D com textura de galáxia */}
       <mesh>
-        <sphereGeometry args={[50, 64, 64]} />
-        <meshBasicMaterial color="#87CEEB" side={THREE.BackSide} />
+        <sphereGeometry args={[60, 64, 64]} />
+        <meshBasicMaterial map={bgTexture} side={THREE.BackSide} />
       </mesh>
 
-      {/* Chão */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.5, 0]}>
-        <planeGeometry args={[10, 10]} />
-        <meshStandardMaterial color="green" />
+      {/* Painel preto de fundo */}
+      <mesh position={[0, 1, -3]}>
+        <boxGeometry args={[10, 10, 0.2]} />
+        <meshStandardMaterial color="#000000" />
       </mesh>
 
-      {/* Botão que navega para /Jogos */}
-      <group position={[0, 1.2, -3]}>
-        <mesh ref={boxRef} onClick={handleClick}>
-          <boxGeometry args={[1.5, 0.5, 0.2]} />
-          <meshStandardMaterial color="#2563eb" />
+      {/* Logo flutuante */}
+      <mesh
+        position={[0, 4, -2.85]}
+        scale={[2, 4, 1]}
+      >
+        <planeGeometry args={[2.5, 1.2]} />
+        <meshBasicMaterial map={logoTexture} transparent />
+      </mesh>
+
+      {/* Texto com nome da empresa */}
+      <Text
+        position={[0, 0.8, -2.85]}
+        fontSize={0.4}
+        color="#ffffff"
+        anchorX="center"
+        anchorY="middle"
+      >
+        ANIMUS REALITY
+      </Text>
+
+      {/* Placeholder de descrição */}
+      <Text
+        position={[0, 0.2, -2.85]}
+        fontSize={0.22}
+        color="#d1d5db"
+        anchorX="center"
+        anchorY="middle"
+        maxWidth={5}
+      >
+        Plataforma imersiva para experiências em Realidade Virtual e Aumentada.
+      </Text>
+
+      {/* Botão de entrada como grupo (para poder mover) */}
+      <group ref={buttonRef} position={[0, -0.8, -2.85]} onClick={handleClick}>
+        {/* Quadrado do botão */}
+        <mesh>
+          <boxGeometry args={[2.5, 0.8, 0.2]} />
+          <meshStandardMaterial color="#2563eb" transparent opacity={0.6} />
         </mesh>
-        <Text position={[0, 0, 0.3]} fontSize={0.3} color="white" anchorX="center" anchorY="middle">
-          Ir para Jogos
-        </Text>
+
+        {/* Texto 3D centralizado no quadrado */}
+        <Text3D
+          font={"/fonts/droid_sans_mono_regular.typeface.json"}
+          size={0.5}       
+          height={0.05}     
+          curveSegments={12}
+          bevelEnabled
+          bevelThickness={0.01}
+          bevelSize={0.01}
+          anchorX="center"
+          anchorY="middle"
+          position={[-1.2, -0.2, 0.05]} // ligeiro offset para frente
+        >
+          Entrar
+          <meshStandardMaterial color="white" />
+        </Text3D>
       </group>
 
-      {/* Cubos criados dinamicamente */}
-      {cubes.map((c, i) => (
-        <mesh
-          key={i}
-          position={[Math.random() * 4 - 2, 1, Math.random() * -4]}
-        >
-          <boxGeometry args={[1, 1, 1]} />
-          <meshStandardMaterial color={c.color || '#ff0000'} />
-        </mesh>
-      ))}
+      
     </XR>
-  )
+  );
 }
 
-export {Scene}
+export { Scene };
