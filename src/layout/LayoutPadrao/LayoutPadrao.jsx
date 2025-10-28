@@ -11,9 +11,19 @@ function LayoutPadrao({ xrStore, Scene }) {
   return (
     <>
       {/* Botões fixos fora do Canvas */}
-      <div style={{ position: "absolute", zIndex: 10, left: 20, top: 20 }}>
-        <button onClick={enterVr}>🥽 Enter VR</button>
-        <button onClick={enterAr}>📱 Enter AR</button>
+      <div className="absolute z-10 flex flex-col gap-4 left-5 top-5">
+        <button
+          onClick={enterVr}
+          className="px-5 py-3 font-bold text-white transition-all duration-300 transform shadow-lg bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:scale-105 hover:shadow-2xl"
+        >
+          🥽 Enter VR
+        </button>
+        <button
+          onClick={enterAr}
+          className="px-5 py-3 font-bold text-white transition-all duration-300 transform shadow-lg bg-gradient-to-r from-green-400 to-blue-500 rounded-xl hover:scale-105 hover:shadow-2xl"
+        >
+          📱 Enter AR
+        </button>
       </div>
 
       {/* Canvas 3D só se houver Scene */}
@@ -23,7 +33,7 @@ function LayoutPadrao({ xrStore, Scene }) {
           gl={{ antialias: true }}
           frameloop="always"
           camera={{ position: [0, 0, 15], fov: 25 }}
-          style={{ width: "100vw", height: "100vh" }}
+          className="w-screen h-screen"
         >
           <OrbitControls
             enablePan={false}
