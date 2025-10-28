@@ -5,10 +5,9 @@ import Galaxy from "../../../public/GalaxyBg"; // fundo galaxy
 import { Canvas } from "@react-three/fiber";
 import { Float, Sphere, Box, OrbitControls } from "@react-three/drei";
 
-// Firebase
-import { auth, db } from "../../firebase/firebaseConfig.js";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+// Firebase Firestore
+import { db } from "../../firebase/firebaseConfig.js";
+import { collection, addDoc } from "firebase/firestore";
 
 function CriarConta() {
   const [user, setUser] = useState("");
@@ -23,14 +22,11 @@ function CriarConta() {
     }
 
     try {
-      // Cria usuário no Firebase Auth
-      const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
-      const uid = userCredential.user.uid;
-
-      // Salva informações extras no Firestore
-      await setDoc(doc(db, "usuarios", uid), {
+      // Salva diretamente no Firestore
+      await addDoc(collection(db, "usuarios"), {
         username: user,
         email: email,
+        senha: pass, // cuidado: senha está em texto simples!
         criadoEm: new Date(),
       });
 
