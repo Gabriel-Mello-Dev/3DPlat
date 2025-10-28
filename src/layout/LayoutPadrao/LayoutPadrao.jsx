@@ -11,7 +11,7 @@ function LayoutPadrao({ xrStore, Scene }) {
   return (
     <>
       {/* Botões fixos fora do Canvas */}
-      <div className="absolute z-10 flex flex-col gap-4 left-5 top-5">
+    <div className="absolute z-10 flex flex-col gap-4 left-5 top-5">
         <button
           onClick={enterVr}
           className="px-5 py-3 font-bold text-white transition-all duration-300 transform shadow-lg bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:scale-105 hover:shadow-2xl"
@@ -26,6 +26,7 @@ function LayoutPadrao({ xrStore, Scene }) {
         </button>
       </div>
 
+
       {/* Canvas 3D só se houver Scene */}
       {Scene && (
         <Canvas
@@ -33,7 +34,7 @@ function LayoutPadrao({ xrStore, Scene }) {
           gl={{ antialias: true }}
           frameloop="always"
           camera={{ position: [0, 0, 15], fov: 25 }}
-          className="w-screen h-screen"
+          style={{ width: "100vw", height: "100vh" }}
         >
           <OrbitControls
             enablePan={false}
