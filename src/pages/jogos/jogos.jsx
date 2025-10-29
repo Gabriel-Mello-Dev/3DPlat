@@ -84,12 +84,7 @@ function Jogos() {
           />
         ))}
 
-        <TeleportTarget onTeleport={(pos) => setPosition([pos.x, 1.2, pos.z])}>
-          <mesh scale={[10, 0.1, 10]} position={[0, 0, 0]}>
-            <boxGeometry />
-            <meshBasicMaterial color="red" transparent opacity={0} />
-          </mesh>
-        </TeleportTarget>
+     
       </XROrigin>
     </XR>
   );

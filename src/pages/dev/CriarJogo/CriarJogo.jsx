@@ -52,7 +52,6 @@ function CriarJogo() {
     setNome("");
     setLink("");
     setImageBase64("");
-    navigate("/admin"); // redireciona para a página de admin
   }
 
   return (
