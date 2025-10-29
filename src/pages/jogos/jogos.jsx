@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-import { createXRStore, XR, XROrigin, TeleportTarget} from "@react-three/xr";
+import React, { useState, useEffect } from "react";
+import { createXRStore, XR, XROrigin, TeleportTarget } from "@react-three/xr";
 import { TextureLoader, BackSide, Vector3 } from "three";
-import { Canvas, useLoader } from "@react-three/fiber";
+import { useLoader } from "@react-three/fiber";
 import { GameCard, PlayerController } from "../../components";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../firebase/firebaseConfig";
 
 const xrStore = createXRStore({
   hand: { teleportPointer: true },
@@ -20,84 +22,76 @@ function Background({ image }) {
 }
 
 function Jogos() {
-  const frameWidth = 8;
-  const frameHeight = 5;
-  const frameDepth = 0.1;
-
-  const jogos = [
-    { id: 1, pos: [-2, 1, -3], name: "Jogo 1", link: "https://www.meta.com/pt-br/experiences/youtube/2002317119880945", image: "/imgs/crystal.png" },
-    { id: 2, pos: [0, 1, -3], name: "Jogo 2", link: "https://example.com/2", image: "/imgs/galaxy.gif" },
-    { id: 3, pos: [2, 1, -3], name: "Jogo 3", link: "https://example.com/3", image: "/imgs/galaxy.gif" },
-    { id: 4, pos: [-2, -1.5, -3], name: "Jogo 4", link: "https://example.com/4", image: "/imgs/galaxy.gif" },
-    { id: 5, pos: [0, -1.5, -3], name: "Jogo 5", link: "https://example.com/5", image: "/imgs/galaxy.gif" },
-    { id: 6, pos: [2, -1.5, -3], name: "Jogo 6", link: "https://example.com/6", image: "/imgs/galaxy.gif" },
-  ];
-
-  // Estado para controlar a posição do usuário (teletransporte)
   const [position, setPosition] = useState(new Vector3());
-const [teleporting, setTeleporting] = useState(false);
+  const [jogos, setJogos] = useState([]);
+
+  useEffect(() => {
+    async function fetchJogos() {
+      const jogosCol = collection(db, "jogos");
+      const snapshot = await getDocs(jogosCol);
+
+      const jogosData = snapshot.docs.map((doc, index) => {
+        const data = doc.data();
+
+        // Grid automático
+        const cols = 3; // colunas
+        const spacingX = 2.5; // espaçamento X
+        const spacingY = 2;   // espaçamento Y
+        const row = Math.floor(index / cols);
+        const col = index % cols;
+        const x = col * spacingX - (cols - 1) * spacingX / 2;
+        const y = 1 - row * spacingY;
+        const z = -3; // profundidade fixa
+
+        return {
+          id: Number(doc.id),
+          pos: [x, y, z],
+          name: data.nome,
+          link: data.link,
+          image: data.image,
+        };
+      });
+
+      setJogos(jogosData);
+    }
+
+    fetchJogos();
+  }, []);
 
   return (
+    <XR store={xrStore}>
+      <XROrigin position={position}>
+        <Background image="/imgs/galaxiabg.png" />
+        <ambientLight intensity={1} />
+        <directionalLight position={[5, 10, 5]} intensity={1} />
 
-            <XR store={xrStore}>
-<XROrigin position={position}>
+        <PlayerController speed={3} />
 
-            {/* Fundo esférico */}
-            <Background image="/imgs/galaxiabg.png" />
+        {/* Chão */}
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]} receiveShadow>
+          <planeGeometry args={[20, 20]} />
+          <meshStandardMaterial color="green" />
+        </mesh>
 
-            <ambientLight intensity={1} />
-            <directionalLight position={[5, 10, 5]} intensity={1} />
+        {jogos.map((jogo) => (
+          <GameCard
+            key={jogo.id}
+            position={jogo.pos}
+            name={jogo.name}
+            link={jogo.link}
+            image={jogo.image}
+            size={[1, 1, 1]}
+          />
+        ))}
 
-            {/* Controle do jogador via analógico */}
-
-            {/* Chão físico (para referência visual e raycast futuro) */}
-            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]} receiveShadow>
-              <planeGeometry args={[20, 20]} />
-              <meshStandardMaterial color="green" />
-            </mesh>
-
-            {/* Cards de jogos */}
-            {jogos.map((jogo) => (
-              <GameCard
-                key={jogo.id}
-                position={jogo.pos}
-                name={jogo.name}
-                link={jogo.link}
-                image={jogo.image}
-                size={[1, 1, 1]}
-              />
-            ))}
-
-            {/* Moldura verde */}
-            <mesh position={[0, frameHeight / 2 - 0.05, -frameWidth / 2]}>
-              <boxGeometry args={[frameWidth, frameDepth, frameDepth]} />
-              <meshStandardMaterial color="green" />
-            </mesh>
-            <mesh position={[0, frameHeight / 2 - 0.05, frameWidth / 2]}>
-              <boxGeometry args={[frameWidth, frameDepth, frameDepth]} />
-              <meshStandardMaterial color="green" />
-            </mesh>
-            <mesh position={[-frameWidth / 2, frameHeight / 2 - 0.05, 0]}>
-              <boxGeometry args={[frameDepth, frameDepth, frameWidth]} />
-              <meshStandardMaterial color="green" />
-            </mesh>
-            <mesh position={[frameWidth / 2, frameHeight / 2 - 0.05, 0]}>
-              <boxGeometry args={[frameDepth, frameDepth, frameWidth]} />
-              <meshStandardMaterial color="green" />
-            </mesh>
-
-            {/* Área de teletransporte */}
-<TeleportTarget onTeleport={(pos) => setPosition([pos.x, 1.2, pos.z])}>
-  <mesh scale={[10, 0.1, 10]} position={[0, 0, 0]}>
-    <boxGeometry />
-    <meshBasicMaterial color="red" transparent opacity={0.3} />
-  </mesh>
-</TeleportTarget>
-
-
-
-          </XROrigin>
-        </XR>
+        <TeleportTarget onTeleport={(pos) => setPosition([pos.x, 1.2, pos.z])}>
+          <mesh scale={[10, 0.1, 10]} position={[0, 0, 0]}>
+            <boxGeometry />
+            <meshBasicMaterial color="red" transparent opacity={0} />
+          </mesh>
+        </TeleportTarget>
+      </XROrigin>
+    </XR>
   );
 }
 

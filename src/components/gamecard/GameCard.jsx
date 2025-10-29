@@ -8,7 +8,7 @@ function GameCard({ link, name, image, position = [0, 0, 0], size = [1.5, 2, 0.5
   const texture = useLoader(TextureLoader, image);
 
   const handleClick = () => {
-    // window.open(link, "_blank"); // abre o link em nova aba
+window.open(link, "_blank"); // abre o link em nova aba
   };
 
   const materials = Array(6).fill(new MeshStandardMaterial({ map: texture }));
