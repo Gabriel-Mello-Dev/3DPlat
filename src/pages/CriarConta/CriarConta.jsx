@@ -7,7 +7,7 @@ import { Float, Sphere, Box, OrbitControls } from "@react-three/drei";
 
 // Firebase Firestore
 import { db } from "../../firebase/firebaseConfig.js";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, getDocs, addDoc, doc, setDoc } from "firebase/firestore";
 
 function CriarConta() {
   const [user, setUser] = useState("");
@@ -20,10 +20,19 @@ function CriarConta() {
       alert("❌ Preencha todos os campos.");
       return;
     }
+  const usuariosRef = collection(db, "usuarios");
+  const snapshot = await getDocs(usuariosRef);
 
+  const ids= snapshot.docs
+  .map(doc=> Number(doc.id)
+  .filter(id => !isNaN(id)));
+  
+  const maiorId = ids.length > 0 ? Math.max(...ids) : 0;
+  const novoId= maiorId+1;
     try {
       // Salva diretamente no Firestore
-      await addDoc(collection(db, "usuarios"), {
+      await setDoc(doc(db, "usuarios", String(novoId)), {
+        id: novoId,
         username: user,
         email: email,
         senha: pass, // cuidado: senha está em texto simples!

@@ -2,20 +2,47 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Galaxy from "../../../public/GalaxyBg"; // Seu componente de fundo galaxy
 import { Canvas } from "@react-three/fiber";
-import { Float, OrbitControls, Sphere, Box } from "@react-three/drei";
-
+import { Float, OrbitControls, Sphere, Box, Stars } from "@react-three/drei";
+import {Star} from '../../components'
+import { collection, query, where, getDocs } from "firebase/firestore";
+import {db} from '../../firebase/firebaseConfig'
 function Home({ onLogin }) {
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    if (user === "a" && pass === "123") {
-      alert("✅ Login bem-sucedido!");
-      navigate("/Scene");
-    } else {
-      alert("❌ Usuário ou senha incorretos.");
-    }
+  async function handleLogin(){
+ 
+
+    
+if (!user || !pass){
+alert("Preencha todos os campos")
+  return;
+}
+
+const users= collection(db,"usuarios")
+  const q = query(
+    users,
+    where("email", "==", user),
+    where("senha", "==", pass)
+  );
+
+
+const snapshot= await getDocs(q);
+ if (snapshot.empty) {
+    console.log("❌ Nenhum usuário encontrado com essas credenciais");
+    return null;
+  }
+
+  // Firestore pode retornar mais de um, mas normalmente será só 1
+  const doc = snapshot.docs[0];
+  const userData = { id: Number(doc.id), ...doc.data() };
+localStorage.setItem("user", true);
+localStorage.setItem("userId", String(userData.id))
+
+navigate("/scene")
+  return userData;
+
   };
 
   return (
@@ -34,6 +61,10 @@ function Home({ onLogin }) {
           <Box args={[1.5, 1.5, 1.5]} position={[2, 1, -4]}>
             <meshStandardMaterial color="#3b82f6" />
           </Box>
+
+<Star color="white"  position={[-3, 1, -1]}>
+  
+</Star>
         </Float>
         <OrbitControls enableZoom={false} />
       </Canvas>
