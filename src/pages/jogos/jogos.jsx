@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createXRStore, XR, XROrigin, TeleportTarget } from "@react-three/xr";
+import { createXRStore, XR, XROrigin, TeleportTarget} from "@react-three/xr";
 import { TextureLoader, BackSide, Vector3 } from "three";
 import { Canvas, useLoader } from "@react-three/fiber";
 import { GameCard, PlayerController } from "../../components";
@@ -35,11 +35,13 @@ function Jogos() {
 
   // Estado para controlar a posição do usuário (teletransporte)
   const [position, setPosition] = useState(new Vector3());
+const [teleporting, setTeleporting] = useState(false);
 
   return (
 
             <XR store={xrStore}>
-          <XROrigin position={position}>
+<XROrigin position={position}>
+
             {/* Fundo esférico */}
             <Background image="/imgs/galaxiabg.png" />
 
@@ -47,7 +49,6 @@ function Jogos() {
             <directionalLight position={[5, 10, 5]} intensity={1} />
 
             {/* Controle do jogador via analógico */}
-            <PlayerController speed={3} />
 
             {/* Chão físico (para referência visual e raycast futuro) */}
             <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]} receiveShadow>
@@ -86,12 +87,15 @@ function Jogos() {
             </mesh>
 
             {/* Área de teletransporte */}
-            <TeleportTarget onTeleport={setPosition}>
-              <mesh scale={[10, 1, 10]} position={[0, -0.5, 0]}>
-                <boxGeometry />
-                <meshBasicMaterial color="limegreen" transparent opacity={0.5} />
-              </mesh>
-            </TeleportTarget>
+<TeleportTarget onTeleport={(pos) => setPosition([pos.x, 1.2, pos.z])}>
+  <mesh scale={[10, 0.1, 10]} position={[0, 0, 0]}>
+    <boxGeometry />
+    <meshBasicMaterial color="red" transparent opacity={0.3} />
+  </mesh>
+</TeleportTarget>
+
+
+
           </XROrigin>
         </XR>
   );
