@@ -46,10 +46,9 @@ navigate("/scene")
   };
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden">
+    <div className="relative w-screen h-screen overflow-hidden bg-black/100">
       {/* Fundo Galaxy atrás de tudo */}
       <div className="absolute inset-0 -z-10">
-        <Galaxy transparent="true" />
       </div>
 <Canvas className="absolute inset-0 z-0">
         <ambientLight intensity={0.5} />
@@ -62,9 +61,7 @@ navigate("/scene")
             <meshStandardMaterial color="#3b82f6" />
           </Box>
 
-<Star color="white"  position={[-3, 1, -1]}>
-  
-</Star>
+<Stars></Stars>
         </Float>
         <OrbitControls enableZoom={false} />
       </Canvas>
