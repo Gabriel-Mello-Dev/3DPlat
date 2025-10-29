@@ -10,6 +10,7 @@ import { useEffect } from "react";
   useEffect(() => {
     console.log("🕹️ Controles XR detectados:", controllers);
   }, [controllers]);
+  
 useFrame((_, delta) => {
   if (!player) {
     return;
