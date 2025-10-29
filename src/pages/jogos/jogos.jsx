@@ -1,16 +1,16 @@
-import React from "react";
-import { Text } from "@react-three/drei";
-import { createXRStore, XR } from "@react-three/xr";
-import { TextureLoader, BackSide } from "three";
-import { useLoader } from "@react-three/fiber";
-import { GameCard, PlayerController} from "../../components";
+import React, { useState } from "react";
+import { createXRStore, XR, XROrigin, TeleportTarget } from "@react-three/xr";
+import { TextureLoader, BackSide, Vector3 } from "three";
+import { Canvas, useLoader } from "@react-three/fiber";
+import { GameCard, PlayerController } from "../../components";
 
-const xrStore = createXRStore();
+const xrStore = createXRStore({
+  hand: { teleportPointer: true },
+  controller: { teleportPointer: true },
+});
 
-// Componente de fundo personalizado
 function Background({ image }) {
   const texture = useLoader(TextureLoader, image);
-
   return (
     <mesh>
       <sphereGeometry args={[50, 64, 64]} />
@@ -33,51 +33,67 @@ function Jogos() {
     { id: 6, pos: [2, -1.5, -3], name: "Jogo 6", link: "https://example.com/6", image: "/imgs/galaxy.gif" },
   ];
 
+  // Estado para controlar a posição do usuário (teletransporte)
+  const [position, setPosition] = useState(new Vector3());
+
   return (
-    <XR store={xrStore}>
-      {/* Fundo personalizado */}
-      <Background image="/imgs/galaxiabg.png" />
-      <PlayerController speed={3} />
 
-      <ambientLight intensity={1} />
-      <directionalLight position={[5, 10, 5]} intensity={1} />
+            <XR store={xrStore}>
+          <XROrigin position={position}>
+            {/* Fundo esférico */}
+            <Background image="/imgs/galaxiabg.png" />
 
-      {/* Geração dos GameCards */}
-      {jogos.map((jogo) => (
-        <GameCard
-          key={jogo.id}
-          position={jogo.pos}
-          name={jogo.name}
-          link={jogo.link}
-          image={jogo.image}
-          size={[1, 1, 1]}
-        />
-      ))}
+            <ambientLight intensity={1} />
+            <directionalLight position={[5, 10, 5]} intensity={1} />
 
-      {/* Chão */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]}>
-        <planeGeometry args={[10, 10]} />
-        <meshStandardMaterial color="green" />
-      </mesh>
+            {/* Controle do jogador via analógico */}
+            <PlayerController speed={3} />
 
-      {/* Moldura verde */}
-      <mesh position={[0, frameHeight / 2 - 0.05, -frameWidth / 2]}>
-        <boxGeometry args={[frameWidth, frameDepth, frameDepth]} />
-        <meshStandardMaterial color="green" />
-      </mesh>
-      <mesh position={[0, frameHeight / 2 - 0.05, frameWidth / 2]}>
-        <boxGeometry args={[frameWidth, frameDepth, frameDepth]} />
-        <meshStandardMaterial color="green" />
-      </mesh>
-      <mesh position={[-frameWidth / 2, frameHeight / 2 - 0.05, 0]}>
-        <boxGeometry args={[frameDepth, frameDepth, frameWidth]} />
-        <meshStandardMaterial color="green" />
-      </mesh>
-      <mesh position={[frameWidth / 2, frameHeight / 2 - 0.05, 0]}>
-        <boxGeometry args={[frameDepth, frameDepth, frameWidth]} />
-        <meshStandardMaterial color="green" />
-      </mesh>
-    </XR>
+            {/* Chão físico (para referência visual e raycast futuro) */}
+            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]} receiveShadow>
+              <planeGeometry args={[20, 20]} />
+              <meshStandardMaterial color="green" />
+            </mesh>
+
+            {/* Cards de jogos */}
+            {jogos.map((jogo) => (
+              <GameCard
+                key={jogo.id}
+                position={jogo.pos}
+                name={jogo.name}
+                link={jogo.link}
+                image={jogo.image}
+                size={[1, 1, 1]}
+              />
+            ))}
+
+            {/* Moldura verde */}
+            <mesh position={[0, frameHeight / 2 - 0.05, -frameWidth / 2]}>
+              <boxGeometry args={[frameWidth, frameDepth, frameDepth]} />
+              <meshStandardMaterial color="green" />
+            </mesh>
+            <mesh position={[0, frameHeight / 2 - 0.05, frameWidth / 2]}>
+              <boxGeometry args={[frameWidth, frameDepth, frameDepth]} />
+              <meshStandardMaterial color="green" />
+            </mesh>
+            <mesh position={[-frameWidth / 2, frameHeight / 2 - 0.05, 0]}>
+              <boxGeometry args={[frameDepth, frameDepth, frameWidth]} />
+              <meshStandardMaterial color="green" />
+            </mesh>
+            <mesh position={[frameWidth / 2, frameHeight / 2 - 0.05, 0]}>
+              <boxGeometry args={[frameDepth, frameDepth, frameWidth]} />
+              <meshStandardMaterial color="green" />
+            </mesh>
+
+            {/* Área de teletransporte */}
+            <TeleportTarget onTeleport={setPosition}>
+              <mesh scale={[10, 1, 10]} position={[0, -0.5, 0]}>
+                <boxGeometry />
+                <meshBasicMaterial color="limegreen" transparent opacity={0.5} />
+              </mesh>
+            </TeleportTarget>
+          </XROrigin>
+        </XR>
   );
 }
 
