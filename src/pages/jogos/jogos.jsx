@@ -3,7 +3,7 @@ import { Text } from "@react-three/drei";
 import { createXRStore, XR } from "@react-three/xr";
 import { TextureLoader, BackSide } from "three";
 import { useLoader } from "@react-three/fiber";
-import { GameCard } from "../../components/gamecard";
+import { GameCard, PlayerController} from "../../components";
 
 const xrStore = createXRStore();
 
@@ -37,6 +37,7 @@ function Jogos() {
     <XR store={xrStore}>
       {/* Fundo personalizado */}
       <Background image="/imgs/galaxiabg.png" />
+      <PlayerController speed={3} />
 
       <ambientLight intensity={1} />
       <directionalLight position={[5, 10, 5]} intensity={1} />
