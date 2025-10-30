@@ -1,0 +1,263 @@
+.playWrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  background: #0f1216;
+  color: #e6edf3;
+}
+
+.gameContainer {
+  position: relative;
+  width: 100%;
+  background: #0d0f12;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55);
+  margin-bottom: 1.5rem;
+}
+
+.gameIframe {
+  width: 100%;
+  height: 600px;
+  border: none;
+  display: block;
+  background: #000;
+}
+
+.gameHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: #1c2430;
+  color: #e6edf3;
+}
+
+.gameHeader p {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.fullscreenBtn {
+  background: #4aa3ff;
+  color: #0f1216;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+
+.fullscreenBtn:hover {
+  background: #3a86d1;
+}
+
+.voltarBtn {
+  background: #394654;
+  color: #c7d1db;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  transition: background 0.3s;
+}
+
+.voltarBtn:hover {
+  background: #465567;
+}
+
+.comments {
+  background: #131820;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+.stats {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #223040;
+}
+
+.stats button {
+  background: #1a2230;
+  color: #c7d1db;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.3s;
+}
+
+.stats button:hover {
+  background: #4aa3ff;
+  color: #0f1216;
+  transform: scale(1.05);
+}
+
+.feedback {
+  color: #31c27c;
+  font-weight: 600;
+  margin: 0;
+}
+
+.commentsSection {
+  margin-bottom: 2.5rem;
+  padding: 1.5rem;
+  background: #151b24;
+  border-radius: 10px;
+}
+
+.sectionTitle {
+  font-size: 1.4rem;
+  color: #e6edf3;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #4aa3ff;
+}
+
+.inputContainer {
+  display: flex;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.inputContainer input {
+  flex: 1;
+  padding: 0.8rem 1rem;
+  background: #0f141b;
+  color: #e6edf3;
+  border: 2px solid #223040;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border 0.3s, background 0.3s;
+}
+
+.inputContainer input::placeholder {
+  color: #8b98a5;
+}
+
+.inputContainer input:focus {
+  outline: none;
+  border-color: #4aa3ff;
+  background: #0c1117;
+}
+
+.postButton {
+  background: #4aa3ff;
+  color: #0f1216;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.postButton:hover {
+  background: #3a86d1;
+}
+
+.comment {
+  background: #0f141b;
+  padding: 1rem 1.2rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+  border: 1px solid #1f2a36;
+}
+
+.comment h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  color: #e6edf3;
+}
+
+.comment p {
+  margin: 0;
+  color: #c7d1db;
+  line-height: 1.5;
+}
+
+.profBadge {
+  color: #ff6b6b;
+  font-weight: 700;
+}
+
+.alunoBadge {
+  color: #4aa3ff;
+  font-weight: 700;
+}
+
+.noComments {
+  text-align: center;
+  color: #8b98a5;
+  font-style: italic;
+  padding: 2rem;
+}
+
+.descricao {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #151b24;
+  border-radius: 10px;
+  border: 1px solid #1f2a36;
+}
+
+.descricao h2 {
+  font-size: 1.5rem;
+  color: #e6edf3;
+  margin-bottom: 1rem;
+}
+
+.descricao h3 {
+  font-size: 1.2rem;
+  color: #c7d1db;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.descricao p {
+  color: #c7d1db;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .gameIframe {
+    height: 400px;
+  }
+
+  .inputContainer {
+    flex-direction: column;
+  }
+
+  .stats {
+    flex-wrap: wrap;
+  }
+}
+
+.deleteBtn {
+  margin-left: 0.75rem;
+  background: transparent;
+  border: 1px solid #ff6b6b;
+  color: #ff6b6b;
+  padding: 0.15rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.deleteBtn:hover {
+  background: #ff6b6b;
+  color: #0f1216; /* fundo escuro */
+}

@@ -1,0 +1,67 @@
+/* loginProf.module.css */
+
+.container {
+  width: 100%;
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 24px;
+  background-color: #000000;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.title {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.input {
+  padding: 12px 14px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: 0.2s;
+}
+
+.input:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 4px rgba(40, 167, 69, 0.3);
+}
+
+.button {
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  background-color: #28a745;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.button:hover {
+  background-color: #218838;
+}
+
+.button:active {
+  background-color: #1e7e34;
+}
+
+.no-retropix {
+  font-family: sans-serif !important;
+  background: "white"
+}
+
+.no-retropix * {
+  font-family: sans-serif !important;
+    background: "white"
+
+}

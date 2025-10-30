@@ -1,0 +1,192 @@
+/* Layout principal */
+.container {
+  display: flex;
+  height: 100vh;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background: linear-gradient(135deg, #121212, #1a1a1a);
+  color: #eee;
+  overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 260px;
+  background: #1e1e1e;
+  padding: 1rem;
+  border-right: 1px solid #2e2e2e;
+  overflow-y: auto;
+  color: #fff;
+}
+
+.turmasLista, .alunosLista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.turmaItem, .alunoItem {
+  padding: 0.6rem;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.turmaItem:hover, .alunoItem:hover {
+  background: #333;
+  transform: translateX(6px);
+}
+
+.turmaAtiva, .alunoAtivo {
+  background: #2979ff;
+  font-weight: bold;
+}
+
+/* Painel central */
+.mainPanel {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  background: #181818;
+  color: #eee;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* Botões */
+.gerarButton, .voltarButton, .mainButton {
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.gerarButton { background: #2979ff; color: #fff; }
+.gerarButton:hover { background: #1565c0; transform: scale(1.05); }
+
+.voltarButton { background: #ff5252; color: #fff; margin-bottom: 1rem; }
+.voltarButton:hover { background: #e04848; transform: scale(1.05); }
+
+.mainButton { background: #00c853; color: #fff; }
+.mainButton:hover { background: #009624; transform: scale(1.05); }
+
+/* Grid de gráficos */
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.2rem;
+
+}
+
+.graficoQuadrado {
+  background: #f2f7fa;
+  border-radius: 12px;
+  padding: 1rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  overflow: hidden;
+  color: #92a2c2
+}
+
+.graficoQuadrado:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.8);
+}
+
+.graficoQuadrado h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 0.8rem;
+    color: #314c89;
+
+}
+
+/* Gráfico ampliado */
+.graficoAmpliado {
+  background: #f2f7fa;
+  border-radius: 12px;
+  padding: 1.2rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+}
+
+.graficoAmpliado h2 {
+  font-size: 1.3rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #92a2c2
+
+}
+
+/* Tooltip custom */
+.customTooltip {
+  background: rgba(40,40,40,0.95);
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+/* Avatares */
+.avatarGrande {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-top: 1rem;
+  border: 2px solid #2979ff;
+  transition: transform 0.4s ease;
+}
+.avatarGrande:hover {
+  transform: scale(1.1) rotate(3deg);
+}
+
+/* Ajustes nos gráficos do recharts */
+.recharts-wrapper {
+  font-size: 0.85rem;
+}
+
+.recharts-legend-item text {
+  font-size: 0.95rem !important;
+  font-weight: 600;
+  fill: #fff !important;
+}
+
+.recharts-cartesian-axis text {
+  font-size: 0.85rem;
+  fill: #bbb;
+}
+
+.recharts-tooltip-wrapper {
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+/* turmasAdm.module.css */
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* cada gráfico ocupa no mínimo 300px */
+  gap: 16px; /* espaçamento entre gráficos */
+}
+
+.graficoQuadrado {
+  background: #f2f7fa;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  cursor: pointer;
+}
+.graficoMini {
+  height: 200px; /* deixa todos com altura consistente */
+}
