@@ -8,7 +8,7 @@ import {
   collection,
   getDocs
 } from "firebase/firestore";
-import { app } from "../../../../api/fireBase";
+import { app } from "../../../firebase/firebaseConfig";
 import { GamesProfCard, Games } from "../../../../components"; // ajuste o path se necessário
 import {Filter} from "bad-words";
 

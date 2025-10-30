@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
 import { doc, updateDoc, getDoc } from "firebase/firestore";
-import { db } from "../../../api/fireBase";
+import { db } from "../../../firebase/firebaseConfig";
 
 function TutorialEditarProf({ user }) {
   const driverRef = useRef(null);

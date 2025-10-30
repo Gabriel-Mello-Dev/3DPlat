@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import style from './loginAdmEscolar.module.css';
 import { getFirestore, collection, getDocs, query, where } from "firebase/firestore";
-import { app } from "../../../api/fireBase";
+import { app } from "../../../firebase/firebaseConfig";
 import bcrypt from "bcryptjs";
 
 const LoginAdmEscolar = () => {

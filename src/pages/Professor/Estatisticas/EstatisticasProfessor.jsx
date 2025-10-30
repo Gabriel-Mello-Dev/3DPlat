@@ -28,7 +28,7 @@ import {
 } from "recharts";
 
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { db } from "../../../api/fireBase"; // seu arquivo firebase.js
+import { db } from "../../../firebase/firebaseConfig"; // seu arquivo firebase.js
 import {TutorialEstatisticas} from '../tutoriais/TutorialEstatisticas'
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#FF0000", "#AA00FF"];
 const RADAR_LABELS = ["Lógica", "Memória", "Criatividade", "Resolução"];

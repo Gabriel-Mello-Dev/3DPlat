@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
-import { app } from "../../../api/fireBase";
+import { app } from "../../../firebase/firebaseConfig";
 import { validarEmail } from "../../../utils/validacoes";
 
 const PerfilAdm = () => {

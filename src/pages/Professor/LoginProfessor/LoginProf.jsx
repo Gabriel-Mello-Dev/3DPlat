@@ -10,7 +10,7 @@ import {
   runTransaction,
   serverTimestamp
 } from "firebase/firestore";
-import { app } from "../../../api/fireBase";
+import { db } from "../../../firebase/firebaseConfig";
 import bcrypt from "bcryptjs";
 import style from './loginProf.module.css'
 const LoginProf = () => {
@@ -23,7 +23,7 @@ const LoginProf = () => {
   const [mostrarSenha, setMostrarSenha] = useState(false);
 
   const navigate = useNavigate();
-  const db = getFirestore(app);
+  const db = getFirestore(db);
 
   const login = async () => {
     if (!email || !senha) {

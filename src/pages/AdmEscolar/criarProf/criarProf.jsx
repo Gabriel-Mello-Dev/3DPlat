@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { db } from "../../../api/fireBase"; 
+import { db } from "../../../firebase/firebaseConfig"; 
 import { collection, getDocs, query, where, doc, setDoc, getDoc } from "firebase/firestore";
 import bcrypt from "bcryptjs";
 import { validarEmail } from "../../../utils/validacoes";

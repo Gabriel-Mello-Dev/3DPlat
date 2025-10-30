@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { db } from "../../../api/fireBase";
+import { db } from "../../../firebase/firebaseConfig";
 import { collection, getDocs, doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
 
 const AdicionarTurma = () => {

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { CriarProfessor } from "../criarProf";
-import { CriarAluno } from "../../criar";
+import { CriarAluno } from "../../CriarConta";
 import { AdicionarTurma } from "../adicionarTurma"; // importa o componente de turma
 
 // Tailwind classnames usados no componente

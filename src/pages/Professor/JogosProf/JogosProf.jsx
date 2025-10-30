@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { GamesProfCard, Engrenagem, SquareLoad } from "../../../components";
 import { useNavigate } from "react-router-dom";
-import { db, storage } from "../../../api/fireBase";
+import { db, storage } from "../../../firebase/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 import HomeDev from './../../desenvolvedor/HomeDev/HomeDev';

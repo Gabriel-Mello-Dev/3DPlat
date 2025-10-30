@@ -9,7 +9,7 @@ import {
 } from "recharts";
 
 import { collection, getDocs, doc, getDoc } from "firebase/firestore";
-import { db } from "../../../api/fireBase";
+import { db } from "../../../firebase/firebaseConfig";
 
 // 🎨 paleta escura
 const COLORS = ["#4FC3F7", "#81C784", "#FFD54F", "#FF8A65", "#E57373", "#BA68C8"];

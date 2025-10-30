@@ -2,7 +2,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { getFirestore, collection, getDocs, doc, updateDoc, getDoc } from "firebase/firestore";
-import { app } from "../../../api/fireBase";
+import { app } from "../../../firebase/firebaseConfig";
 import bcrypt from "bcryptjs";
 import jsPDF from "jspdf";
 
