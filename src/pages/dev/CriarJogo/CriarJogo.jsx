@@ -9,8 +9,8 @@ function CriarJogo() {
   const [nome, setNome] = useState("");
   const [link, setLink] = useState("");
   const [imageBase64, setImageBase64] = useState("");
-  const navigate = useNavigate();
-
+  const navigate = useNavigate()  ;
+const devId= localStorage.getItem("devId")
   // Converte arquivo para Base64
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -46,6 +46,7 @@ function CriarJogo() {
       nome,
       link,
       image: imageBase64,
+      devId,
     });
 
     alert("Jogo criado com sucesso!");
@@ -55,22 +56,9 @@ function CriarJogo() {
   }
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden bg-black">
+    <div className="relative w-screen h-screen overflow-hidden text-center bg-black align">
       {/* Canvas 3D */}
-      <Canvas className="absolute inset-0 z-0">
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[5, 5, 5]} />
-        <Float speed={2} rotationIntensity={1} floatIntensity={2}>
-          <Sphere args={[1, 32, 32]} position={[-2, 0, -5]}>
-            <meshStandardMaterial color="#fbbf24" />
-          </Sphere>
-          <Box args={[1.5, 1.5, 1.5]} position={[2, 1, -4]}>
-            <meshStandardMaterial color="#3b82f6" />
-          </Box>
-          <Stars />
-        </Float>
-        <OrbitControls enableZoom={false} />
-      </Canvas>
+     
 
       {/* Formulário */}
       <div className="absolute z-10 flex flex-col gap-4 p-8 transform -translate-x-1/2 -translate-y-1/2 shadow-xl top-1/2 left-1/2 bg-white/90 backdrop-blur-md rounded-2xl w-96">

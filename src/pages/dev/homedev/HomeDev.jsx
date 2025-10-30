@@ -1,100 +1,90 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Canvas } from "@react-three/fiber";
-import { Float, OrbitControls, Sphere, Box, Stars } from "@react-three/drei";
+import React, { useEffect, useState } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase/firebaseConfig";
-import { useEffect } from "react";
 
-function HomeDev({ onLogin }) {
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const navigate = useNavigate();
+function HomeDev() {
+  const [jogos, setJogos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    async function carregarJogos() {
+      try {
+        const devId = localStorage.getItem("devId");
+        if (!devId) {
+          console.warn("Nenhum devId encontrado no localStorage");
+          setLoading(false);
+          return;
+        }
 
-    console.log("a")
+        const jogosRef = collection(db, "jogos");
+        const q = query(jogosRef, where("devId", "==", devId));
+        const snapshot = await getDocs(q);
+
+        if (snapshot.empty) {
+          console.log("⚠️ Nenhum jogo encontrado para este dev");
+          setJogos([]);
+        } else {
+          const lista = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setJogos(lista);
+        }
+      } catch (err) {
+        console.error("Erro ao carregar jogos:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    carregarJogos();
   }, []);
 
-  async function handleLogin() {
-    if (!email || !senha) {
-      alert("Preencha todos os campos");
-      return;
-    }
+  if (loading) {
+    return <p className="text-center text-gray-600">Carregando jogos...</p>;
+  }
 
-    const devsCollection = collection(db, "devs");
-    const q = query(
-      devsCollection,
-      where("email", "==", email),
-      where("senha", "==", senha)
+  if (jogos.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center h-full">
+        <p className="text-lg text-gray-500">Você ainda não criou nenhum jogo 😅</p>
+      </div>
     );
-
-    const snapshot = await getDocs(q);
-    if (snapshot.empty) {
-      console.log("❌ Nenhum dev encontrado com essas credenciais");
-      alert("Email ou senha incorretos");
-      return;
-    }
-
-    const doc = snapshot.docs[0];
-    const devData = { id: doc.id, ...doc.data() };
-    localStorage.setItem("devLogged", true);
-    localStorage.setItem("devId", String(devData.id));
-
-    navigate("/CriarJogo"); // redireciona para página de dev
-    return devData;
   }
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden bg-black">
-      {/* Canvas 3D */}
-      <Canvas className="absolute inset-0 z-0">
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[5, 5, 5]} />
-        <Float speed={2} rotationIntensity={1} floatIntensity={2}>
-          <Sphere args={[1, 32, 32]} position={[-2, 0, -5]}>
-            <meshStandardMaterial color="#fbbf24" />
-          </Sphere>
-          <Box args={[1.5, 1.5, 1.5]} position={[2, 1, -4]}>
-            <meshStandardMaterial color="#3b82f6" />
-          </Box>
-          <Stars />
-        </Float>
-        <OrbitControls enableZoom={false} />
-      </Canvas>
-
-      {/* Formulário */}
-      <div className="absolute z-10 flex flex-col gap-4 p-8 transform -translate-x-1/2 -translate-y-1/2 shadow-xl top-1/2 left-1/2 bg-white/90 backdrop-blur-md rounded-2xl w-80">
-        <h1 className="mb-4 text-2xl font-bold text-center text-gray-800">Login Dev</h1>
-        <input
-          type="text"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <input
-          type="password"
-          placeholder="Senha"
-          value={senha}
-          onChange={(e) => setSenha(e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <button
-          onClick={() => navigate("/CriarContaDev")}
-          className="py-2 mt-2 font-semibold text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700"
-        >
-          Ainda não possui login?
-        </button>
-        <button
-          onClick={handleLogin}
-          className="py-2 mt-2 font-semibold text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700"
-        >
-          Entrar
-        </button>
+    <div className="space-y-4">
+      <h2 className="mb-6 text-3xl font-bold text-gray-800">Meus Jogos</h2>
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {jogos.map((jogo) => (
+          <div
+            key={jogo.id}
+            className="flex flex-col p-4 transition bg-white shadow-lg rounded-xl hover:shadow-xl"
+          >
+            <h3 className="mb-2 text-xl font-semibold">{jogo.nome || "Sem nome"}</h3>
+            {jogo.image && (
+              <img
+                src={jogo.image}
+                alt={jogo.nome}
+                className="object-cover w-full h-40 mb-3 rounded-lg"
+              />
+            )}
+            <p className="text-sm text-gray-600">
+              Descrição: {jogo.descricao || "Sem descrição"}
+            </p>
+            <a
+              href={jogo.link || "#"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-4 py-2 mt-auto text-center text-white transition bg-blue-600 rounded-lg hover:bg-blue-700"
+            >
+              Conferir na meta store
+            </a>
+          </div>
+        ))}
       </div>
     </div>
   );
 }
 
-export { HomeDev };
+export  {HomeDev};

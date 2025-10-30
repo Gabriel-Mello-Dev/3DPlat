@@ -1,8 +1,9 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Home, Scene, Jogos, CriarConta, HomeDev, Error, CriarJogo} from "./pages";
-import { LayoutPadrao } from "./layout";
+import { LayoutPadrao, LayoutDev } from "./layout";
 import { createXRStore } from "@react-three/xr";
+import { LoginDev } from "./pages/dev/LoginDev/LoginDev";
 
 const xrStore = createXRStore();
 
@@ -13,9 +14,13 @@ function RoutesApp() {
       <Route path="/" element={<Home />} />
             <Route path="*" element={<Error />} />
 
+      <Route element={<LayoutDev/>}>
       <Route path="/CriarConta" element={<CriarConta />} />
-      <Route path="/Dev" element={<HomeDev />} />
       <Route path="/CriarJogo" element={<CriarJogo />} />
+      <Route path="/MeusJogos" element={<HomeDev />} />
+      </Route>
+
+      <Route path="/Dev" element={<LoginDev />} />
 
       {/* Rotas que usam LayoutPadrao com Canvas/XR */}
       <Route element={<LayoutPadrao xrStore={xrStore} Scene={Scene} />}>
