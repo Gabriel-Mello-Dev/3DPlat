@@ -1,0 +1,78 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  gap: 50px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #353535b2; /* modo escuro com leve transparência */
+  padding: 20px;
+  color: #f0f0f0;
+}
+
+.no-retropix {
+  font-family: sans-serif !important;
+  background: "white"
+}
+
+.no-retropix * {
+  font-family: sans-serif !important;
+    background: "white"
+
+}
+
+.title {
+  font-size: 2.5rem;
+  color: #ffffff;
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.mainButton {
+  padding: 25px 45px;
+  font-size: 1.2rem;
+  background: linear-gradient(145deg, #05668d, #028090);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.mainButton:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(145deg, #028090, #05668d);
+}
+
+/* Botão de logout separado e mais largo */
+.logoutButton {
+  padding: 25px 60px; /* mais largo */
+  background: linear-gradient(145deg, #ff4d4d, #e63946);
+  margin-top: 40px; /* separado dos outros */
+}
+
+.logoutButton:hover {
+  background: linear-gradient(145deg, #e63946, #ff4d4d);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}

@@ -56,43 +56,76 @@ const devId= localStorage.getItem("devId")
   }
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden text-center bg-black align">
-      {/* Canvas 3D */}
-     
+   <div className="relative flex items-center justify-center w-screen h-screen overflow-hidden text-white">
 
-      {/* Formulário */}
-      <div className="absolute z-10 flex flex-col gap-4 p-8 transform -translate-x-1/2 -translate-y-1/2 shadow-xl top-1/2 left-1/2 bg-white/90 backdrop-blur-md rounded-2xl w-96">
-        <h1 className="mb-4 text-2xl font-bold text-center text-gray-800">Criar Jogo</h1>
+  {/* Container principal */}
+  <div className="relative z-10 w-[420px] bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-2xl p-8 text-center">
 
+    {/* Título */}
+    <h1 className="mb-6 text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-400">
+      Criar Jogo
+    </h1>
+
+    {/* Inputs */}
+    <div className="flex flex-col gap-4 text-left">
+      <div>
+        <label className="block mb-1 text-sm font-semibold text-gray-200">Nome do Jogo</label>
         <input
           type="text"
-          placeholder="Nome do Jogo"
+          placeholder="Digite o nome do jogo"
           value={nome}
           onChange={(e) => setNome(e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
+      </div>
+
+      <div>
+        <label className="block mb-1 text-sm font-semibold text-gray-200">Link do Jogo</label>
         <input
           type="text"
-          placeholder="Link do Jogo"
+          placeholder="https://"
           value={link}
           onChange={(e) => setLink(e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
+      </div>
+
+      <div>
+        <label className="block mb-1 text-sm font-semibold text-gray-200">Imagem do Jogo</label>
         <input
           type="file"
           accept="image/*"
           onChange={handleImageUpload}
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-
-        <button
-          onClick={handleCriarJogo}
-          className="py-2 mt-2 font-semibold text-white transition-colors bg-green-600 rounded-lg hover:bg-green-700"
-        >
-          Criar Jogo
-        </button>
       </div>
     </div>
+
+    {/* Botão */}
+    <button
+      onClick={handleCriarJogo}
+      className="w-full py-3 mt-6 font-semibold text-white transition-all rounded-lg bg-gradient-to-r from-green-500 to-emerald-600 hover:opacity-90"
+    >
+      Criar Jogo
+    </button>
+  </div>
+
+  {/* Fundo animado opcional */}
+  <div className="absolute inset-0 opacity-20">
+    <Canvas>
+      <ambientLight intensity={0.3} />
+      <directionalLight position={[5, 5, 5]} />
+      <Float speed={1.5} rotationIntensity={2} floatIntensity={3}>
+        <Sphere args={[1, 32, 32]} position={[0, 0, -3]}>
+          <meshStandardMaterial color="#00ffcc" wireframe />
+        </Sphere>
+      </Float>
+      <Stars />
+      <OrbitControls enableZoom={false} enablePan={false} />
+    </Canvas>
+  </div>
+</div>
+
   );
 }
 

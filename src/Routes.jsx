@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { Home, Scene, Jogos, CriarConta, HomeDev, Error, CriarJogo} from "./pages";
+import { Home, Scene, Jogos, CriarConta, HomeDev, Error, CriarJogo, CriarAdmEscolar, CriarCliente} from "./pages";
 import { LayoutPadrao, LayoutDev } from "./layout";
 import { createXRStore } from "@react-three/xr";
 import { LoginDev } from "./pages/dev/LoginDev/LoginDev";
@@ -18,6 +18,8 @@ function RoutesApp() {
       <Route path="/CriarConta" element={<CriarConta />} />
       <Route path="/CriarJogo" element={<CriarJogo />} />
       <Route path="/MeusJogos" element={<HomeDev />} />
+      <Route path="/CriarAdmin" element={<CriarAdmEscolar />} />
+      <Route path="/CriarCliente" element={<CriarCliente />} />
       </Route>
 
       <Route path="/Dev" element={<LoginDev />} />

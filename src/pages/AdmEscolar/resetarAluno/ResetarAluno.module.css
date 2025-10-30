@@ -1,0 +1,265 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #1a1a1a;
+}
+
+.title {
+  font-size: clamp(1.75rem, 2vw + 1rem, 2.5rem);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #0d47a1;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.muted {
+  color: #999;
+  font-style: italic;
+}
+
+/* Alertas */
+.alert {
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.alertOk {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.alertErr {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* Seções */
+.section {
+  background: #000;               /* era #fff */
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5); /* sombra mais escura */
+  border: 1px solid #222;         /* borda sutil para destacar no fundo preto */
+}
+
+.sectionTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #eaeaea;                 /* mais legível no fundo preto */
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+/* Input */
+.input {
+  padding: 0.625rem 0.875rem;
+  border: 1px solid #444;         /* era #ccc */
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+  min-width: 200px;
+  background: #000;               /* era branco padrão */
+  color: #eaeaea;                 /* texto claro no fundo preto */
+}
+
+.input::placeholder {
+  color: #8a8a8a;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #0d47a1;
+}
+
+/* Grid de turmas */
+.turmasGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.turmaCard {
+  padding: 1rem;
+  border: 2px solid #333;         /* era #e0e0e0 */
+  border-radius: 8px;
+  background: #000;               /* era #fafafa */
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+  text-align: center;
+  color: #eaeaea;
+}
+
+.turmaCard:hover {
+  border-color: #0d47a1;
+  background: #0a0a0a;            /* leve variação do preto */
+}
+
+.turmaCard.selected {
+  border-color: #0d47a1;
+  background: #0e1522;            /* equivalente “dark” do #e3f2fd */
+  color: #cfe1ff;
+}
+
+/* Lista de alunos */
+.alunosLista {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 0.5rem;
+}
+
+.alunoCard {
+  padding: 1rem;
+  border: 2px solid #333;         /* era #e0e0e0 */
+  border-radius: 8px;
+  background: #000;               /* era #fff */
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  color: #eaeaea;
+}
+
+.alunoCard:hover {
+  border-color: #0d47a1;
+  background: #0a0a0a;
+}
+
+.alunoCard.selected {
+  border-color: #0d47a1;
+  background: #0e1522;            /* equivalente “dark” do #e3f2fd */
+}
+
+.alunoCard strong {
+  font-size: 1rem;
+  color: #eaeaea;                 /* era #333 */
+}
+
+.alunoCard small {
+  font-size: 0.85rem;
+  color: #a0a0a0;                 /* era #666 */
+}
+
+/* Reset box */
+.resetBox {
+  background: #0a0a0a;            /* era #f9f9f9 */
+  border: 1px solid #333;         /* era #ddd */
+  border-radius: 8px;
+  padding: 1.5rem;
+  color: #eaeaea;
+}
+
+.resetBox p {
+  margin-bottom: 0.5rem;
+}
+
+.actionsRow {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.button {
+  padding: 0.75rem 1.5rem;
+  background: #0d47a1;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.button:hover:not(:disabled) {
+  background: #08306b;
+}
+
+.button:disabled {
+  background: #555;               /* era #ccc */
+  cursor: not-allowed;
+}
+
+.buttonSecondary {
+  background: #28a745;
+}
+
+.buttonSecondary:hover:not(:disabled) {
+  background: #1e7e34;
+}
+
+/* Senha gerada */
+.senhaBox {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: #221c00;            /* era #fff3cd */
+  border: 1px solid #8a6d00;      /* era #ffc107 */
+  border-radius: 6px;
+  color: #f3e7b3;
+}
+
+.senhaCode {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffb3b3;                 /* era #d32f2f (ajuste p/ dark) */
+  background: #000;               /* era #fff */
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin: 0.5rem 0;
+  letter-spacing: 2px;
+}
+
+.hint {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #cdbb7a;                 /* era #856404 */
+}
+
+/* Footer */
+.footerActions {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.linkButton {
+  background: none;
+  border: none;
+  color: #8ab4ff;                 /* melhor no escuro */
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 1rem;
+}
+
+.linkButton:hover {
+  color: #a8c4ff;
+}

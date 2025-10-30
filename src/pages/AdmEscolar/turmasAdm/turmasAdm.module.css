@@ -1,0 +1,257 @@
+/* src/pages/admin/turmasAdm.module.css */
+/* --- Página / layout geral --- */
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr 320px;
+  gap: 18px;
+  padding: 24px;
+  min-height: calc(100vh - 48px);
+  background: #e6f0fb; /* fundo claro azulado */
+  box-sizing: border-box;
+}
+
+/* --- Sidebar esquerda (barra azul fina na imagem) --- */
+.sidebarLeft {
+  background: linear-gradient(180deg,#2f5aa3,#2a4b8f);
+  color: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 6px 18px rgba(16,24,40,0.08);
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+/* logo / título dentro da sidebar */
+.logoBox h3 {
+  margin: 0;
+  font-size: 18px;
+  color:#eef6ff;
+}
+.logoBox small { color: rgba(238,246,255,0.8); }
+
+/* menu / botões */
+.menu { display:flex; flex-direction:column; gap:8px; margin-top:8px; }
+.menuBtn {
+  padding: 10px 12px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+  text-align: left;
+  cursor:pointer;
+  font-weight:600;
+  color:#e6f0fb;
+}
+.menuBtn:hover { background: rgba(255,255,255,0.04); }
+.menuBtn.active {
+  background: linear-gradient(90deg,#7fb3ea,#5b8ed9);
+  border-color: rgba(255,255,255,0.12);
+  box-shadow: 0 6px 18px rgba(50,100,180,0.12);
+}
+
+.sideActions { margin-top:auto; }
+.logoutBtn {
+  width:100%;
+  padding:8px 10px;
+  border-radius:8px;
+  background:#ef4444;
+  color:#fff;
+  border:none;
+  cursor:pointer;
+}
+.logoutBtn:hover { opacity:0.95; }
+
+/* --- Main (área central clara como na imagem) --- */
+.main {
+  background: transparent; /* deixamos transparente para mostrar o layout geral */
+  border-radius: 12px;
+  padding: 0; /* padding controlado pelos painéis internos */
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  min-height: 520px;
+}
+
+/* header na área central */
+.header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+}
+.header h1 { margin:0; font-size:20px; color:#13456a; }
+.headerRight { display:flex; gap:8px; align-items:center; }
+.smallInfo {
+  background:#d9e9fb;
+  padding:6px 8px;
+  border-radius:8px;
+  font-size:12px;
+  color:#123c5a;
+  box-shadow: 0 2px 6px rgba(19,61,90,0.06);
+}
+
+/* --- Painel que envolve os gráficos (grande, arredondado, azul médio) --- */
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 18px;
+  align-items: stretch;  /* 🔹 faz os filhos preencherem verticalmente */
+  justify-content: center;
+
+  /* estilo do painel maior */
+  background: #91b2ea;
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(17, 60, 110, 0.06);
+}
+
+/* cada card de gráfico (branco, bordas arredondadas) */
+.graficoQuadrado {
+  background:#f7fbff; /* card branco com tom azulado */
+  border-radius:12px;
+  padding:14px;
+  border:1px solid rgba(14,60,115,0.06);
+  cursor:pointer;
+  transition: transform .12s ease, box-shadow .12s ease;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  min-height: 170px;
+  box-shadow: 0 4px 10px rgba(14,60,115,0.04);
+}
+.graficoQuadrado:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(14,60,115,0.08);
+}
+.graficoTituloMini { font-size:14px; margin:0; color:#123654; font-weight:600; }
+.graficoMini { flex:1; }
+
+/* --- Gráfico ampliado (quando clicar) --- */
+.graficoAmpliado {
+  background:#e6f4ff;
+  border-radius:14px;
+  padding:14px;
+  border:1px solid rgba(14,60,115,0.06);
+  box-shadow: 0 8px 30px rgba(14,60,115,0.06);
+}
+.graficoAmpliadoHeader {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:8px;
+}
+.voltarButton {
+  background:transparent;
+  border:1px solid rgba(14,60,115,0.08);
+  color:#123654;
+  padding:6px 8px;
+  border-radius:8px;
+  cursor:pointer;
+}
+.graficoAmpliadoChart { height:420px; width:100%; }
+
+.graficoDescricao { color:#25506f; margin-top:8px; }
+
+/* --- Sidebar direita (painel claro) --- */
+.sidebarRight {
+  background: linear-gradient(180deg,#d7e9fb,#dceefc);
+  border-radius:12px;
+  padding:12px;
+  box-shadow: 0 6px 18px rgba(18,60,100,0.04);
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+/* cartões internos (lista de professores) */
+.card {
+  border-radius:10px;
+  background:#fbfdff;
+  padding:12px;
+  border:1px solid rgba(14,60,115,0.04);
+  box-shadow: 0 4px 10px rgba(14,60,115,0.03);
+}
+.card h3 { margin:0 0 6px 0; font-size:15px; color:#123654; }
+.cardBody { font-size:13px; color:#0f3b56; max-height:320px; padding-right:6px; }
+
+.listSmall { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; }
+.listSmall li { font-size:13px; color:red; }
+
+/* --- Últimos acessos (novo estilo para ficar como na imagem) --- */
+/* Troque o inline style do JSX por className={style.accessBox} */
+.accessBox {
+  margin-top: 24px;
+  padding: 18px;
+  background: #ecf5ff; /* caixa clara */
+  border-radius: 14px;
+}
+
+/* título e seletor */
+.accessTitle { color:#11445f; font-weight:700; margin:0 0 8px 0; font-size:18px; }
+.accessSelectorRow {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:12px;
+  color:#11445f;
+  font-size:14px;
+}
+/* "dropdown" simulando o pill azul da imagem */
+.accessSelector {
+  margin-left:8px;
+  flex:1;
+  background: linear-gradient(90deg,#b7d4f6,#9cc7f5);
+  border-radius:18px;
+  padding:8px 12px;
+  color:#06243a;
+  border:1px solid rgba(6,36,58,0.06);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  max-height: 2rem;
+  text-align: center;
+overflow: visible;
+}
+
+/* lista interna com fundo acinzentado e cantos arredondados */
+.accessListContainer {
+  width: 100%;
+  height: 200px;              /* 🔹 altura fixa da div */
+  overflow-y: auto;           /* 🔹 rolagem só vertical */
+  overflow-x: hidden;         /* 🔹 evita scroll lateral */
+  border-radius: 6px;         /* opcional */
+  background: #d9deeb;
+}
+
+.accessListContainer ul {
+  margin: 0;
+  padding-left: 18px;
+  color: red;
+  list-style: disc;
+}
+
+.accessListContainer li {
+  margin-bottom: 8px;
+}
+.acessLi{
+color: #4b6398;
+
+}
+
+/* --- Loading --- */
+.loading {
+  grid-column: 1 / -1;
+  padding: 40px;
+  text-align:center;
+  font-weight:700;
+  color:#123654;
+}
+
+/* --- responsividade --- */
+@media (max-width: 980px) {
+  .layout { grid-template-columns: 1fr; grid-template-rows: auto; padding:12px; }
+  .sidebarLeft, .sidebarRight { order: 2; width:100%; }
+  .main { order: 1; }
+  .sidebarRight { display:none; } /* esconder painel direito em mobile por enquanto */
+  .gridContainer { grid-template-columns: 1fr; }
+}

@@ -46,7 +46,7 @@ function LayoutDev() {
           </NavLink>
 
           <NavLink
-            to="/ConfigDev"
+            to="/CriarAdmin"
             className={({ isActive }) =>
               `flex items-center gap-2 p-2 rounded-lg transition ${
                 isActive ? "bg-blue-600" : "hover:bg-gray-700"
@@ -54,8 +54,21 @@ function LayoutDev() {
             }
           >
             <Settings size={20} />
-            Configurações
-          </NavLink>
+Criar Admin      
+    </NavLink>
+
+
+  <NavLink
+            to="/CriarCliente"
+            className={({ isActive }) =>
+              `flex items-center gap-2 p-2 rounded-lg transition ${
+                isActive ? "bg-blue-600" : "hover:bg-gray-700"
+              }`
+            }
+          >
+            <Settings size={20} />
+Criar Cliente          </NavLink>
+
         </nav>
 
         <button
